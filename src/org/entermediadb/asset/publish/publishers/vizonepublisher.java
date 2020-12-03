@@ -368,6 +368,18 @@ public class vizonepublisher extends BasePublisher implements Publisher
 				}
 				//log.info("*** value.setText: "+val +" for "+key);
 				isKeyExists = true;
+				Element elem_iter_origin = _elem.element("origin");
+				if (key.contains("asset.") && elem_iter_origin == null) {
+
+					String dict_key = key.replace("asset.","");
+	
+					Element origin = _elem.addElement("origin");
+					String str_id = "urn:vme:frprod:dictionary:" + dict_key + ":" + val;
+					String str_href = "http://mtlbmepvlvos01.cbc-rc.ca/api/metadata/dictionary/~" + dict_key + "/" + val;
+					origin.addAttribute("id", str_id);
+					origin.addAttribute("href", str_href);
+					
+				}
 			} 
 		}
 		if (!isKeyExists) {
